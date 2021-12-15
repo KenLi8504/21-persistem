@@ -30,7 +30,9 @@ int main() {
     fgets(input,10000,stdin);
     char input_length_adjusted [strlen(input)];
     strcpy(input_length_adjusted,input);
-    // //printf("The string was %s",input);
+
+    printf("The string was %s",input);
+
     write(from_server,input_length_adjusted,10000);
     //printf("Got up here\n");
     read(to_server,output,10000);
