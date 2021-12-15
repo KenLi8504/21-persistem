@@ -22,7 +22,7 @@ int main() {
     // int pipefrom = open(toParent,O_WRONLY);
     //printf("The values of my pipes are %d and %d\n",pipeto,pipefrom);
     while (1){
-      read(to_client,input,10000);
+      read(from_client,input,10000);
       //printf("Party!\n");
       strcpy(intermediate,input);
       printf("The child here received here was %s\n",input);
@@ -58,7 +58,7 @@ int main() {
       strcpy(output,intermediate);
       // printf("The length of the input is %ld\n",strlen(input));
       printf("The output here was %s\n",intermediate);
-      write(from_client,output,10000);
+      write(to_client,output,10000);
     }
     return 0;
   }
