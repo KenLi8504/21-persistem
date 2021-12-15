@@ -33,9 +33,9 @@ int main() {
 
     printf("The string was %s",input);
 
-    write(from_server,input_length_adjusted,10000);
+    write(to_server,input_length_adjusted,10000);
     //printf("Got up here\n");
-    read(to_server,output,10000);
+    read(from_server,output,10000);
     //printf("Got up here2\n");
     printf("The output from the child was %s\n",output);
     }
