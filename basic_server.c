@@ -13,13 +13,6 @@ int main() {
       from_client = server_handshake( &to_client );
       hasClient = hasClient + 1;
     }
-    while(1){
-      if (read(from_client,line,LEN) == 0){
-        break;
-      }
-      char input[10000];
-      char intermediate[10000];
-      char output [10000];
 
       // char *toChild = "toChild";
       // char *toParent = "toParent";
@@ -27,6 +20,13 @@ int main() {
       // int pipefrom = open(toParent,O_WRONLY);
       //printf("The values of my pipes are %d and %d\n",pipeto,pipefrom);
       while (1){
+        char input[10000];
+        char intermediate[10000];
+        char output [10000];
+        if (read(from_client,input,1000) == 0){
+          break;
+        }
+        
         read(from_client,input,10000);
         printf("Party!\n");
         strcpy(intermediate,input);
