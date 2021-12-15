@@ -1,39 +1,65 @@
 #include "pipe_networking.h"
 
+#define READ 0
+#define WRITE 1
 
 int main() {
   int to_client;
   int from_client;
   int hasClient = 0;
+
   while (1){
     if (hasClient == 0){
       from_client = server_handshake( &to_client );
     }
-    else{
-      char input [10000];
-      char output [10000];
-      char *toChild = "toChild";
-      char *toParent = "toParent";
+    char input[10000];
+    char intermediate[10000];
+    char output [10000];
 
-      int good1 = mkfifo("toChild",0644);
-      int good2 = mkfifo("toParent",0644);
-      //printf("The value of my pipes are %d and %d\n",good1,good2);
-      int pipeto = open(toChild,O_WRONLY);
-      int pipefrom = open(toParent,O_RDONLY);
-      //printf("The values of my pipes are %d and %d\n",pipeto,pipefrom);
-      while(1){
-        printf("Enter a string: ");
-        fgets(input,10000,stdin);
-        char input_length_adjusted [strlen(input)];
-        strcpy(input_length_adjusted,input);
-        // //printf("The string was %s",input);
-        write(pipeto,input_length_adjusted,10000);
-        //printf("Got up here\n");
-        read(pipefrom,output,10000);
-        //printf("Got up here2\n");
-        printf("The output from the child was %s\n",output);
+    // char *toChild = "toChild";
+    // char *toParent = "toParent";
+    // int pipeto = open(toChild,O_RDONLY);
+    // int pipefrom = open(toParent,O_WRONLY);
+    //printf("The values of my pipes are %d and %d\n",pipeto,pipefrom);
+    while (1){
+      read(to_client,input,10000);
+      //printf("Party!\n");
+      strcpy(intermediate,input);
+      //printf("The child here received here was %s\n",input);
+      //printf("The output here was %s\n",intermediate);
+      int counter = 0;
+      for (int i = 0; intermediate[i]!='\0'; i++) {
+        //printf("This char is %c\n",intermediate[i]);
+        //printf("The counter is %d",counter);
+        if (counter == 0){
+          if(intermediate[i] >= 'a' && intermediate[i] <= 'z') {
+            intermediate[i] = intermediate[i] - 32;
+            counter = counter + 1;
+            //printf("OPTION 1");
+          }
+          else if (intermediate[i] >= 'A' && intermediate[i] <= 'Z'){
+            counter = counter + 1;
+            //printf("OPTION 2");
+          }
+        }
+        else if (counter == 1){
+          if (intermediate[i] >= 'a' && intermediate[i] <= 'z') {
+            counter = counter - 1;
+            //printf("OPTION 3");
+          }
+          else if (intermediate[i] >= 'A' && intermediate[i] <= 'Z'){
+            intermediate[i] = intermediate[i] + 32;
+            counter = counter - 1;
+            //printf("OPTION 4");
+          }
+        }
+      //printf("The new string is %s",intermediate);
       }
+      strcpy(output,intermediate);
+      // printf("The length of the input is %ld\n",strlen(input));
+      //printf("The output here was %s\n",intermediate);
+      write(from_client,output,10000);
     }
+    return 0;
   }
-  return 0;
 }
