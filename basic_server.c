@@ -23,7 +23,7 @@ int main() {
     //printf("The values of my pipes are %d and %d\n",pipeto,pipefrom);
     while (1){
       read(from_client,input,10000);
-      //printf("Party!\n");
+      printf("Party!\n");
       strcpy(intermediate,input);
       printf("The child here received here was %s\n",input);
       //printf("The output here was %s\n",intermediate);
@@ -53,7 +53,7 @@ int main() {
             //printf("OPTION 4");
           }
         }
-      //printf("The new string is %s",intermediate);
+      printf("The new string is %s",intermediate);
       }
       strcpy(output,intermediate);
       // printf("The length of the input is %ld\n",strlen(input));
