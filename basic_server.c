@@ -14,6 +14,9 @@ int main() {
       hasClient = hasClient + 1;
     }
     while(1){
+      if (read(from_client,line,LEN) == 0){
+        break;
+      }
       char input[10000];
       char intermediate[10000];
       char output [10000];
