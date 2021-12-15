@@ -17,6 +17,7 @@ int main() {
         char output [10000];
 
         if (read(from_client,input,1000) != 0){
+          printf("the input was %s\n",input);
           printf("Party!\n");
           strcpy(intermediate,input);
           printf("The child here received here was %s\n",input);
