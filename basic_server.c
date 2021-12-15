@@ -12,6 +12,7 @@ int main() {
     if (hasClient == 0){
       from_client = server_handshake( &to_client );
     }
+    else{
     char input[10000];
     char intermediate[10000];
     char output [10000];
@@ -60,6 +61,7 @@ int main() {
       printf("The output here was %s\n",intermediate);
       write(to_client,output,10000);
     }
-    return 0;
   }
+  }
+  return 0;
 }
