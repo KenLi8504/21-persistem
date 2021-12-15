@@ -56,7 +56,7 @@ int client_handshake(int *to_server) {
     int send_secret_pipe_to_server = write(*to_server, clientPID, HANDSHAKE_BUFFER_SIZE);
 
     //3
-    int from_server = open(clientPID, O_RDONLY);
+    int from_server = open(WKP, O_RDONLY);
 
     //6
     char acknowledgement[HANDSHAKE_BUFFER_SIZE];
