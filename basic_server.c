@@ -9,24 +9,17 @@ int main() {
   int hasClient = 0;
 
   while (1){
-    if (hasClient == 0){
       from_client = server_handshake( &to_client );
-      hasClient = hasClient + 1;
-    }
 
-      // char *toChild = "toChild";
-      // char *toParent = "toParent";
-      // int pipeto = open(toChild,O_RDONLY);
-      // int pipefrom = open(toParent,O_WRONLY);
-      //printf("The values of my pipes are %d and %d\n",pipeto,pipefrom);
       while (1){
         char input[10000];
         char intermediate[10000];
         char output [10000];
+
         if (read(from_client,input,1000) == 0){
           break;
         }
-        
+
         read(from_client,input,10000);
         printf("Party!\n");
         strcpy(intermediate,input);
@@ -64,7 +57,6 @@ int main() {
         // printf("The length of the input is %ld\n",strlen(input));
         printf("The output here was %s\n",intermediate);
         write(to_client,output,10000);
-      }
     }
   }
   return 0;
